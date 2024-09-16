@@ -2,22 +2,22 @@ package td03;
 
 public class TD03_test {
     private int[] L;
-    private int expected_lenght;
+    private int expected_length;
 
-    public TD03_test(int expected_lenght, int ...L) {
+    public TD03_test(int expected_length, int ...L) {
         this.L = L;
-        this.expected_lenght = expected_lenght;
+        this.expected_length = expected_length;
     }
 
     public boolean process() {
         int length = td03.length_pgss(this.L);
-        boolean result = length == this.expected_lenght;
+        boolean result = length == this.expected_length;
 
         if (result) {
             System.out.println(
-                    "OK : length_pgss( " + stringifyIntArray() + " ) is equal to " + this.expected_lenght);
+                    "OK : length_pgss( " + stringifyIntArray() + " ) is equal to " + this.expected_length);
         } else {
-            System.out.println("KO : length_pgss( " + stringifyIntArray() + " ) should be equal to " + this.expected_lenght
+            System.out.println("KO : length_pgss( " + stringifyIntArray() + " ) should be equal to " + this.expected_length
                     + " but returned " + length);
         }
 
