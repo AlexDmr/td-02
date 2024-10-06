@@ -7,12 +7,34 @@ public class Entrepot {
         return null;
     }
 
+    /**
+     * Renvoie la somme des poids des caisses de chaque emplacement
+     */
     int[] poidsDesPiles() {
-        return null;
+        int[] poids = new int[emplacements.length];
+
+        for (int i = 0; i < emplacements.length; i++) {
+            poids[i] = 0;
+            for (int j = 0; j < emplacements[i].length; j++) {
+                poids[i] += emplacements[i][j].poids;
+            }
+        }
+
+        return poids;
     }
 
+    /**
+     * La somme de toutes les caisses
+     * = La somme de toutes les piles
+     */
     int poidTotal() {
-        return 0;
+        int poids = 0;
+
+        for (int p : poidsDesPiles()) {
+            poids += p;
+        }
+
+        return poids;
     }
 
     Position[] listerProblemes() {
