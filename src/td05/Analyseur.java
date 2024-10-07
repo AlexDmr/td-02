@@ -1,14 +1,16 @@
 package td05;
 
-import java.util.Optional;
-
 public class Analyseur {
     /**
      * à faire
-     * @param s string to evaluate, containing an arithmetic expression formatted in inverse Polish notation.
-     * @return the integer value of the string s, evaluated as an arithmetic expression
+     * 
+     * @param s string to evaluate, containing an arithmetic expression formatted in
+     *          inverse Polish notation.
+     * @return the integer value of the string s, evaluated as an arithmetic
+     *         expression
      */
-    Optional<Integer> eval(String s) { // Optional est une classe générique, elle ne s'applique que sur des classes, d'où l'utilisation de Integer plutot que int
+    int eval(String s) { // Optional est une classe générique, elle ne s'applique que sur des classes,
+                         // d'où l'utilisation de Integer plutot que int
         Fragment[] L = parse(s);
         Pile P = new Pile();
 
@@ -16,49 +18,40 @@ public class Analyseur {
             if (f.type == Type.num) {
                 P.empiler(f);
             } else {
-                Optional<Integer> B = entier(P.dépiler().value);
-                Optional<Integer> A = entier(P.dépiler().value);
-                Optional<Integer> res;
-
-                if (A.isEmpty() || B.isEmpty()) {
-                    return Optional.empty(); // Attention ça n'est pas conseillé dans ce cours de placer des returns dans les for
-                } else {
-                    int a = A.get();
-                    int b = B.get();
-
-                    switch (f.value) {
-                        case "+":
-                            res = Optional.of(a + b);
-                            break;
-                        case "-":
-                            res = Optional.of(a - b);
-                            break;
-                        case "*":
-                        case "x":
-                            res = Optional.of(a * b);
-                            break;
-                        case "/":
-                            // On évite ici la cas indéfinit de la division par 0.
-                            res = b == 0 ? Optional.empty() : Optional.of(a / b);
-                            break;
-                        default:
-                            // Opérateur inconnu --> L'expression n'est pas définie
-                            res = Optional.empty();
-                    }
-
-                    if (res.isEmpty())
-                        return Optional.empty(); // Même remarque sur le return dans le for...
-                    
-                    // Si on est ici, c'est que res est porteur d'une valeur.
-                    P.empiler(
-                        new Fragment(Type.num, Integer.toString(res.get()))
-                    );
+                int b = entier(P.dépiler().value);
+                int a = entier(P.dépiler().value);
+                int res;
+                switch (f.value) {
+                    case "+":
+                        res = a + b;
+                        break;
+                    case "-":
+                        res = a - b;
+                        break;
+                    case "*":
+                    case "x":
+                        res = a * b;
+                        break;
+                    case "/":
+                        // Que se passe-t-il si b vaut 0 ?
+                        res = a / b;
+                        break;
+                    default:
+                        // Opérateur inconnu --> L'expression n'est pas définie
+                        // Que devrait-on faire ?
+                        res = 0;
                 }
+
+                P.empiler(
+                        new Fragment(Type.num, Integer.toString(res))
+                );
             }
         }
-        
+
+        // Normalement la pile devrait ne contenir qu'un seul élément,
+        // que faire si ça n'est pas le cas ?
         return entier(
-            P.dépiler().value
+                P.dépiler().value
         );
     }
 
@@ -70,7 +63,8 @@ public class Analyseur {
         String[] tokens = s.split(" ");
         Fragment[] fragments = new Fragment[tokens.length];
         for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].equals("+") || tokens[i].equals("x") || tokens[i].equals("-") || tokens[i].equals("*") || tokens[i].equals("/")) {
+            if (tokens[i].equals("+") || tokens[i].equals("x") || tokens[i].equals("-") || tokens[i].equals("*")
+                    || tokens[i].equals("/")) {
                 fragments[i] = new Fragment(Type.op, tokens[i]);
             } else {
                 fragments[i] = new Fragment(Type.num, tokens[i]);
@@ -80,14 +74,9 @@ public class Analyseur {
     }
 
     // Return the integer value of the string s
-    Optional<Integer> entier(String s) { // Optional est une classe générique, elle ne s'applique que sur des classes, d'où l'utilisation de Integer plutot que int
-        // On traite l'exception
-        // Le mieux dans notre approche aurait été que Integer.parseInt renvoie un Optional<Integer>
-        try {
-            return Optional.of( Integer.parseInt(s) );
-        } catch(NumberFormatException e) {
-            return Optional.empty();
-        }
+    int entier(String s) { // Optional est une classe générique, elle ne s'applique que sur des classes,
+                           // d'où l'utilisation de Integer plutot que int
+        return Integer.parseInt(s);
     }
 
 }
