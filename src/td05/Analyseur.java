@@ -7,6 +7,19 @@ public class Analyseur {
      * @return the integer value of the string s, evaluated as an arithmetic expression
      */
     int eval(String s) {
+        Fragment[] L = parse(s);
+        Pile P = new Pile();
+
+        /**
+         * ça donne une idée de solution MAIS il faudrait placer ça dans 
+         * une boucle englobante pour pouvoir tout parcourir
+         */
+        int i = 0;
+        while (i != L.length && L[i].type != Type.op) {
+            P.empiler( L[i] );
+            i++;
+        }
+
         return 0;
     }
 
