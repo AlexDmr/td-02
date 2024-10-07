@@ -57,9 +57,8 @@ public class Analyseur {
             }
         }
         
-        return entier(
-            P.dépiler().value
-        );
+        Optional<Integer> result = entier( P.dépiler().value );
+        return P.estVide() ? result : Optional.empty();
     }
 
     /**
