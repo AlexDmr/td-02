@@ -25,4 +25,9 @@ public class Vehicule {
         this.nbPassagers = Math.max(1, nbPassagers);
     }
 
+    @Override
+    public String toString() {
+        return "Véhicule: [vitesse:" + getVitesse() + "km/h, " + getNbPassagers() + " passagers]";
+    }
+
 }

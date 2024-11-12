@@ -9,4 +9,8 @@ public class A {
     public void afficher() {
         System.out.println("> Affichage de A");
     }
+
+    public void toto() {
+        System.out.println("> Méthode toto de A");
+    }
 }
