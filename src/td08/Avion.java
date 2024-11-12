@@ -28,7 +28,7 @@ public class Avion extends Vehicule {
     
     @Override
     public String toString() {
-        return "Avtion: [vitesse:" + getVitesse() + "km/h, "
+        return super.toString() + " Avion: [vitesse:" + getVitesse() + "km/h, "
              + getNbPassagers() + " passagers, "
              + getNbMoteurs() + " moteurs]";
     }

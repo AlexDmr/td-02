@@ -27,7 +27,7 @@ public class Vehicule {
 
     @Override
     public String toString() {
-        return "Véhicule: [vitesse:" + getVitesse() + "km/h, " + getNbPassagers() + " passagers]";
+        return super.toString() + "Véhicule: [vitesse:" + getVitesse() + "km/h, " + getNbPassagers() + " passagers]";
     }
 
 }
